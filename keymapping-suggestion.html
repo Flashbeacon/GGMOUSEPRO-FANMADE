@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	    <meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	    <title>Suggest Game Keymapping Code | GG Mouse Pro 3</title>
+
+	    <script src="https://cdn.tailwindcss.com"></script>
+
+	    <style>
+	        html {
+	            scroll-behavior: smooth;
+	        }
+	        .gradient-bg {
+	            background: linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%);
+	        }
+	        .hero-gradient {
+	            background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%);
+	        }
+	        .card-hover {
+	            transition: all 0.3s ease;
+	        }
+	        .card-hover:hover {
+	            transform: translateY(-8px);
+	            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.15);
+	        }
+	        .thumbnail-container {
+	            position: relative;
+	            width: 100%;
+	            aspect-ratio: 16/9;
+	        }
+	        .thumbnail-container img {
+	            width: 100%;
+	            height: 100%;
+	            object-fit: cover;
+	        }
+	        .play-button {
+	            position: absolute;
+	            top: 50%;
+	            left: 50%;
+	            transform: translate(-50%, -50%);
+	            width: 60px;
+	            height: 60px;
+	            background: rgba(0, 0, 0, 0.7);
+	            border-radius: 50%;
+	            display: flex;
+	            align-items: center;
+	            justify-content: center;
+	            transition: all 0.3s ease;
+	        }
+	        .play-button svg {
+	            width: 30px;
+	            height: 30px;
+	            fill: white;
+	            margin-left: 2px;
+	        }
+	        .thumbnail-container:hover .play-button {
+	            background: rgba(37, 99, 235);
+	        }
+
+	        /* Base label styling */
+	        label {
+	            color: #64748b;
+	        }
+	        
+	        /* Fix floating labels when input/select/textarea has content */
+	        .has-content + label,
+	        input:focus + label,
+	        select:focus + label,
+	        textarea:focus + label {
+	            font-size: 0.75rem !important;
+	            transform: translateY(-0.75rem) !important;
+	            color: #1d4ed8 !important;
+	        }
+	        .nav-link {
+	            position: relative;
+	        }
+	        .nav-link::after {
+	            content: '';
+	            position: absolute;
+	            bottom: -4px;
+	            left: 0;
+	            width: 0;
+	            height: 2px;
+	            background: linear-gradient(90deg, #2563EB, #06B6D4);
+	            transition: width 0.3s ease;
+	        }
+	        .nav-link:hover::after {
+	            width: 100%;
+	        }
+	        .accordion-content {
+	            max-height: 0;
+	            overflow: hidden;
+	            transition: max-height 0.3s ease-out;
+	        }
+	        .accordion-content.active {
+	            max-height: 500px;
+	        }
+	        .btn-primary {
+	            background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%);
+	            transition: all 0.3s ease;
+	        }
+	        .btn-primary:hover {
+	            transform: translateY(-2px);
+	            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+	        }
+	        .btn-secondary {
+	            border: 2px solid #2563EB;
+	            transition: all 0.3s ease;
+	        }
+	        .btn-secondary:hover {
+	            background: #2563EB;
+	            color: white;
+	        }
+	        @keyframes fadeInUp {
+	            from {
+	                opacity: 0;
+	                transform: translateY(30px);
+	            }
+	            to {
+	                opacity: 1;
+	                transform: translateY(0);
+	            }
+	        }
+	        .animate-fadeInUp {
+	            animation: fadeInUp 0.6s ease forwards;
+	        }
+	        .scroll-animate {
+	            opacity: 0;
+	            transform: translateY(30px);
+	            transition: all 0.6s ease;
+	        }
+	        .scroll-animate.visible {
+	            opacity: 1;
+	            transform: translateY(0);
+	        }
+	        #backToTop {
+	            transition: all 0.3s ease;
+	        }
+	        .mobile-menu {
+	            transform: translateX(100%);
+	            transition: transform 0.3s ease;
+	        }
+	        .mobile-menu.active {
+	            transform: translateX(0);
+	        }
+	        #custom-button {
+			    background: #106fde;
+			    position: relative;
+			    overflow: hidden;
+			    z-index: 1;
+			}
+
+			#custom-button::before {
+			    content: "";
+			    position: absolute;
+			    inset: 0;
+			    background: linear-gradient(-45deg, #106fde, blue);
+			    opacity: 0;
+			    transition: opacity 0.6s ease;
+			    z-index: -1;
+			}
+
+			#custom-button:hover::before {
+			    opacity: 1;
+			}
+	    </style>
+	</head>
+
+	<body class="bg-slate-50 text-slate-800" style="margin-top: 30px;">
+		<header id="site-header" class="gm-header">
+    <div class="gm-header-inner">
+        <a href="index.html" class="gm-brand" aria-label="GG Mouse Pro Home">
+            <span class="gm-brand-mark">GG</span>
+            <span class="gm-brand-text">
+                <strong>GG Mouse</strong>
+                <small>PRO</small>
+            </span>
+        </a>
+
+        <nav class="gm-nav" aria-label="Main navigation">
+            <a href="index.html#home" class="">Home</a>
+            <a href="index.html#features" class="">Features</a>
+            <a href="index.html#tutorials" class="">Tutorials</a>
+            <a href="index.html#faq" class="">FAQ</a>
+            <a href="index.html#support" class="">Support</a>
+        </nav>
+
+        <div class="gm-header-actions">
+            <button
+                type="button"
+                id="ggmouse-theme-toggle"
+                class="gm-theme-toggle"
+                aria-label="Switch theme"
+                aria-pressed="false">
+                <span class="gm-theme-icon" aria-hidden="true">🌙</span>
+            </button>
+
+            <a href="download.html" class="gm-header-download">
+                Download
+            </a>
+
+            <button
+                type="button"
+                id="gmMenuToggle"
+                class="gm-menu-toggle"
+                aria-label="Open navigation"
+                aria-expanded="false"
+                aria-controls="gmMobileNav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </div>
+
+    <nav id="gmMobileNav" class="gm-mobile-nav" aria-label="Mobile navigation">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#features">Features</a>
+        <a href="index.html#tutorials">Tutorials</a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="index.html#support">Support</a>
+        <a href="download.html" class="gm-mobile-download">Download GG Mouse Pro</a>
+    </nav>
+</header>
+
+
+	    <main class="max-w-3xl mx-auto px-4 py-12">
+
+	        <a href="./index.html" class="text-blue-600 font-semibold back-link">← Home</a>
+
+	        <div class="bg-white rounded-2xl p-8 mt-6 shadow-sm">
+
+	            <h1 class="text-3xl font-bold mb-2">
+	                Suggest a Keymapping Code
+	            </h1>
+
+	            <p class="text-slate-500 mb-8">
+	                Submit the actual code/config value you want added.
+	                You can add any game code here.
+	            </p>
+
+	            <div class="space-y-5">
+
+	                <div>
+	                    <label class="block font-semibold mb-2">Game</label>
+	                    <input
+	                        id="game"
+	                        type="text"
+	                        class="w-full border rounded-xl px-4 py-3"
+	                        placeholder="e.g. BGMI, COD Mobile"
+	                    >
+	                </div>
+
+	                <div>
+	                    <label class="block font-semibold mb-2">
+	                        Keymapping code
+	                    </label>
+
+	                    <textarea
+	                        id="code"
+	                        rows="5"
+	                        class="w-full border rounded-xl px-4 py-3 font-mono"
+	                        placeholder="Paste the keymapping code/config here"
+	                    ></textarea>
+	                </div>
+
+	                <div>
+	                    <label class="block font-semibold mb-2">
+	                        What does this code do?
+	                    </label>
+
+	                    <input
+	                        id="desc"
+	                        type="text"
+	                        class="w-full border rounded-xl px-4 py-3"
+	                        placeholder="e.g. 4-finger layout / aim + fire setup"
+	                    >
+	                </div>
+
+	                <div>
+	                    <label class="block font-semibold mb-2">
+	                        Version / device (optional)
+	                    </label>
+
+	                    <input
+	                        id="version"
+	                        type="text"
+	                        class="w-full border rounded-xl px-4 py-3"
+	                        placeholder="e.g. Android 14, game version 1.110"
+	                    >
+	                </div>
+
+	                <button
+	                    type="button"
+	                    onclick="submitSuggestion()"
+	                    class="w-full text-white rounded-xl px-5 py-3 font-semibold"
+	                    id="custom-button"
+	                >
+	                    Send Suggestion
+	                </button>
+
+	            </div>
+
+	            <p id="status" class="text-sm text-red-500 mt-4"></p>
+
+	        </div>
+
+	        <div
+	            id="successPopup"
+	            class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4"
+	        >
+	            <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 text-center">
+
+	                <div class="mx-auto mb-5 w-16 h-16 rounded-full bg-green-100 flex items-center justify-center">
+	                    <svg
+	                        class="w-9 h-9 text-green-600"
+	                        fill="none"
+	                        stroke="currentColor"
+	                        viewBox="0 0 24 24"
+	                    >
+	                        <path
+	                            stroke-linecap="round"
+	                            stroke-linejoin="round"
+	                            stroke-width="2"
+	                            d="M5 13l4 4L19 7"
+	                        />
+	                    </svg>
+	                </div>
+
+	                <h2 class="text-2xl font-bold mb-3">
+	                    🎉 Thank You!
+	                </h2>
+
+	                <p class="text-slate-500 mb-6">
+	                    Thank you for suggesting a keymapping code!
+	                    Your contribution is greatly appreciated.
+	                </p>
+
+	                <button
+	                    type="button"
+	                    onclick="closePopup()"
+	                    class="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl px-5 py-3 font-semibold transition"
+	                >
+	                    Okay...(in meme accent)
+	                </button>
+
+	            </div>
+	        </div>
+	    </main>
+	    <footer class="bg-slate-900 text-white py-16">
+	        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+	            <div class="grid md:grid-cols-4 gap-8 mb-12">
+	                <div>
+	                    <h3 class="text-2xl font-bold bg-gradient-to-r from-primary to-cyan bg-clip-text text-transparent mb-4">GG Mouse Pro 3</h3>
+	                    <p class="text-slate-400">Professional Mobile Gaming Emulation Tool for Everyone</p>
+	                </div>
+	                <div>
+	                    <h4 class="font-bold mb-4">Quick Links</h4>
+	                    <ul class="space-y-2 text-slate-400">
+	                        <li><a href="./index.html/#home" class="hover:text-white transition">Home</a></li>
+	                        <li><a href="./index.html/#about" class="hover:text-white transition">About</a></li>
+	                        <li><a href="./index.html/#features" class="hover:text-white transition">Features</a></li>
+	                        <li><a href="./index.html/#tutorials" class="hover:text-white transition">Tutorials</a></li>
+	                        <li><a href="/Free-Fire/Keymapping.html" class="hover:text-white transition">Keymaps - Free Fire</a></li>
+	                        <li><a href="/keymapping-suggestion.html" class="hover:text-white transition">Keymap Template - Other Games</a></li>
+	                    </ul>
+	                </div>
+	                <div>
+	                    <h4 class="font-bold mb-4">More</h4>
+	                    <ul class="space-y-2 text-slate-400">
+	                        <li><a href="./index.html/#activation" class="hover:text-white transition">Activation</a></li>
+	                        <li><a href="./index.html/#faq" class="hover:text-white transition">FAQ</a></li>
+	                        <li><a href="./index.html/#support" class="hover:text-white transition">Support</a></li>
+	                        <li><a href="./index.html/#contact" class="hover:text-white transition">Contact</a></li>
+	                    </ul>
+	                </div>
+	                <div>
+	                    <h4 class="font-bold mb-4">Social</h4>
+	                    <ul class="space-y-2 text-slate-400">
+	                        <li><a href="https://chat.whatsapp.com/F58Pa9J7zvk4swQgJOlMnC" target="_blank" class="hover:text-white transition">WhatsApp</a></li>
+	                        <li><a href="https://discord.gg/nmSEC42psM" target="_blank" class="hover:text-white transition">Discord</a></li>
+	                        <li><a href="https://www.instagram.com/gg_gaming_apps2/" target="_blank" class="hover:text-white transition">Instagram</a></li>
+	                        <li><a href="mailto:support@ggmousepro.com" class="hover:text-white transition">Email</a></li>
+	                    </ul>
+	                </div>
+	            </div>
+	            <div class="border-t border-slate-800 pt-8 text-center text-slate-500">
+	                <p>&copy; 2024 GG Mouse Pro 3. All rights reserved. | ggmousepro.in</p>
+	            </div>
+	        </div>
+	    </footer>
+
+
+
+	    <script>
+	        function submitSuggestion() {
+	            const game = document.getElementById("game").value.trim();
+	            const code = document.getElementById("code").value.trim();
+	            const desc = document.getElementById("desc").value.trim();
+	            const version = document.getElementById("version").value.trim();
+	            const status = document.getElementById("status");
+
+	            if (!game || !code) {
+	                status.textContent = "Please enter the game name and actual keymapping code.";
+	                // document.getElementById("game").style.border = "1px solid #ff0000";
+	                // document.getElementById("code").style.border = "1px solid #ff0000";
+	                // document.getElementById("desc").style.border = "1px solid #ff0000";
+	                // document.getElementById("version").style.border = "1px solid #ff0000";
+
+	                return;
+
+	            }
+
+	            const body =
+	                "Game: " + game + "\n\n" +
+	                "Keymapping code:\n" + code + "\n\n" +
+	                "What it does: " + desc + "\n" +
+	                "Version/device: " + version;
+
+	            const subject = "Keymapping Code Suggestion - " + game;
+
+	            window.location.href =
+	                "https://mail.google.com/mail/?view=cm&fs=1" +
+	                "&to=" + encodeURIComponent("galaxy.store.uwu@gmail.com") +
+	                "&su=" + encodeURIComponent(subject) +
+	                "&body=" + encodeURIComponent(body);
+
+	            document.getElementById("successPopup").classList.remove("hidden");
+
+	            document.getElementById("game").value = "";
+	            document.getElementById("code").value = "";
+	            document.getElementById("desc").value = "";
+	            document.getElementById("version").value = "";
+	        }
+
+	        function closePopup() {
+	            document.getElementById("successPopup").classList.add("hidden");
+	        }
+	        const backLinks = document.querySelectorAll(".back-link");
+
+			backLinks.forEach(link => {
+			    link.addEventListener("click", (event) => {
+			        event.preventDefault();
+			        history.back();
+			    });
+			});
+		</script>
+    <link rel="stylesheet" href="ggmouse-layout.css">
+    <script src="theme-toggle.js" data-dark-css="ggmouse-theme.css"></script>
+</body>
+</html>
